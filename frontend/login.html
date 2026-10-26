@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lumina</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body class="login-page">
+    <h1 class="site-title">Lumina Quest</h1>
+  <div class="wrapper">
+    <div class="form-wrapper sign-in">
+     <form id="login-form">
+        <h2>Login</h2>
+        <div class="input-group">
+          <input id="login-username" type="text" required>
+          <label>Username</label>
+        </div>
+        <div class="input-group">
+          <input id="login-password" type="password" required>
+          <label>Password</label>
+          <span class="eye-icon" onclick="togglePassword('login-password', this)">👁</span>
+        </div>
+        <p id="loginError" class="error-msg"></p>
+        <p id="loginSuccess" class="success-msg"></p>
+        <button type="submit">Login</button>
+        <div class="signUp-link">
+          <p>Don't have an account? <a href="#" class="signUpBtn-link">Sign Up</a></p>
+        </div>
+      </form>
+    </div>
+    <div class="form-wrapper sign-up">
+     <form id="signup-form"> 
+        <h2>Sign Up</h2>
+        <div class="input-group">
+          <input id="signup-username" type="text" required>
+          <label>Username</label>
+        </div>
+        <div class="input-group">
+         <input id="signup-email" type="email" required>
+          <label>Email</label>
+        </div>
+        <div class="input-group">
+          <input id="signup-password" type="password" required>
+          <label>Password</label>
+          <span class="eye-icon" onclick="togglePassword('signup-password', this)">👁</span>
+        </div>
+        <div class="input-group">
+          <input id="signup-confirm-password" type="password" required>
+          <label>Confirm Password</label>
+          <span class="eye-icon" onclick="togglePassword('signup-confirm-password', this)">👁</span>
+        </div>
+        <p id="signupError" class="error-msg"></p>
+        <p id="signupSuccess" class="success-msg"></p>
+        <button type="submit">Sign Up</button>
+        <div class="signUp-link">
+          <p>Already have an account? <a href="#" class="signInBtn-link">Sign In</a></p>
+        </div>
+      </form>
+    </div>
+  </div>
+  <audio id="bgMusic" loop>
+    <source src="music/backgroundmusic.mp3" type="audio/mpeg">
+  </audio>
+  <script src="js/login.js"></script>
+  <div id="rpgPopup" class="rpg-popup">
+    <div class="rpg-box">
+      <p id="rpgText"></p>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="js/auth-guard.js"></script>  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lumina Quest</title>
+</head>
+<body>
+<style>
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font: inherit;
+    vertical-align: baseline;
+  }
+  body {
+    background-image: url("./images/webackground.jpg");
+    background-size: cover;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  canvas {
+    width: 1024px;
+    height: 576px;
+    display: block;
+  }
+  #newRecord {
+  animation: pop 0.4s ease;
+}
+
+@keyframes pop {
+  0% { transform: scale(0.6); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.glass-box {
+  background: rgba(255, 255, 255, 0.1); 
+  backdrop-filter: blur(10px); 
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 16px;
+
+  border: 1px solid rgba(255, 255, 255, 0.2);
+
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+
+  color: white;
+}
+.glass-box h2,
+.glass-box p,
+.glass-box h3 {
+  color: white;
+  text-shadow: 0 0 8px rgba(0,0,0,0.7);
+}
+button {
+  background: rgba(255,255,255,0.2);
+  border-radius: 8px;
+  padding: 6px 16px;
+  color: white;
+  cursor: pointer;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255,255,255,0.3);
+  transition: 0.3s;
+}
+
+button:hover {
+  background: rgba(255,255,255,0.4);
+}
+.hud-text {
+  position: absolute;
+  bottom: 16px;
+  padding: 8px 16px;
+  font-family: sans-serif;
+  text-align: center;
+  font-size: 14px;
+  color: #ff0088; 
+  font-family: 'Trebuchet MS', sans-serif; 
+  font-size: 14px;
+}
+  
+  
+</style>
+
+<canvas style="image-rendering: pixelated"></canvas>
+
+<!-- Pause Button -->
+<button id="pauseBtn" style="
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 500;
+  font-size: 18px;
+  padding: 6px 14px;
+">⏸ Pause</button>
+
+<!-- Pause Menu -->
+<div id="pauseMenu" class="glass-box" style="
+  display: none;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 32px 48px;
+  z-index: 1000;
+  text-align: center;
+">
+  <h2 style="margin-bottom: 20px; font-size: 24px;">Game Paused</h2>
+  <button id="resumeBtn" style="display:block; width:100%; margin-bottom: 12px; padding: 10px 20px; font-size: 16px;">▶ Resume</button>
+  <button id="restartBtn" style="display:block; width:100%; margin-bottom: 12px; padding: 10px 20px; font-size: 16px;">🔄 Restart</button>
+  <button id="menuBtn" style="display:block; width:100%; padding: 10px 20px; font-size: 16px;">🏠 Return to Menu</button>
+</div>
+<!--heart puzzle -->
+<div id="heartPuzzle" class="glass-box" style="
+display:none;
+position:absolute;
+top:40%;
+left:40%;
+padding:20px;
+z-index:1000;
+text-align:center;
+">
+
+<h3>Solve the puzzle to continue</h3>
+
+<img id="puzzleImage" width="200">
+
+<br><br>
+
+<input id="puzzleAnswer" type="number" placeholder="Enter answer">
+
+<button onclick="submitPuzzleAnswer()">Submit</button>
+
+</div>
+
+<!--winning -->
+<div id="winScreen" class="glass-box" style="
+display:none;
+position:absolute;
+top:40%;
+left:50%;
+transform:translateX(-50%);
+padding:24px 32px;
+z-index:1000;
+text-align:center;
+font-family:sans-serif;
+">
+<h2 style="margin-bottom:12px;">You collected all the gems!</h2>
+<p style="margin-bottom:8px;">Congratulations, you finished the level.</p>
+
+<p style="margin-bottom:16px;">
+  Your time: <span id="finalTime">0.0</span>s
+</p>
+
+<!--  New Record -->
+<div id="newRecord" style="
+  display:none;
+  color: gold;
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 12px;
+">
+  New Record!
+</div>
+  <button onclick="restartGame()" style="padding:6px 16px; cursor:pointer;">Play Again</button>
+    <button style="padding:6px 16px; cursor:pointer;" id="backToMenu">Back to Menu</button>
+</div>
+<div class="glass-box hud-text">
+  <strong>WASD</strong> to Move &nbsp; | &nbsp;
+  <strong>Space</strong> to Roll / Attack
+</div>
+<script src="./data/l_Sky_Ocean.js"></script>
+<script src="./data/l_Sky_Two.js"></script>
+<script src="./data/l_Ocean_3.js"></script>
+<script src="./data/l_Back_Tiles.js"></script>
+<script src="./data/l_Front_Tiles.js"></script>
+<script src="./data/l_Decorations.js"></script>
+<script src="./data/l_Front_Tiles_2.js"></script>
+<script src="./data/l_Gems.js"></script>
+<script src="./data/l_Collisions.js"></script>
+<script src="./data/collisions.js"></script>
+
+<script src="./js/utils.js"></script>
+
+<script src="./classes/CollisionBlock.js"></script>
+<script src="./classes/Platform.js"></script>
+<script src="./classes/Player.js"></script>
+<script src="./classes/Heart.js"></script>
+<script src="./classes/Sprite.js"></script>
+<script src="./classes/Oposum.js"></script>
+<script src="./classes/Eagle.js"></script>
+
+<script src="./js/index.js"></script>
+<script src="./js/eventListeners.js"></script>
+<script>
+  const backToMenu = document.getElementById("backToMenu");
+backToMenu.addEventListener("click", () => {
+    window.location.href = "menu.html"; 
+});
+</script>
+
+ 
+
+</body>
+</html>

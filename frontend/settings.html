@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <script src="js/auth-guard.js"></script>
+  <meta charset="UTF-8">
+  <title>Game Profile</title>
+   <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+<div class="game-bg">
+  <div class="settings-card">
+
+    <!-- HEADER -->
+    <div class="settings-header">
+      <h1>⚙ Settings</h1>
+    </div>
+
+    <!-- TOP PANEL -->
+    <div class="settings-panel">
+
+      <!-- SOUND -->
+      <div class="setting-row">
+        <span>🔊 Sound</span>
+        <input type="range" min="0" max="100" value="60" class="slider" id="soundSlider">
+      </div>
+
+      <!-- MUSIC -->
+      <div class="setting-row">
+        <span>🎵 Music</span>
+        <input type="range" min="0" max="100" value="80" class="slider" id="musicSlider">
+      </div>
+
+    </div>
+
+    <!-- BOTTOM PANEL -->
+    <div class="settings-panel">
+
+    <!-- HOW TO PLAY -->
+<div class="setting-row" style="align-items: flex-start; flex-direction: column; gap: 14px;">
+    <span>🎮 How to Play</span>
+    <div style="display: flex; flex-direction: column; gap: 10px; width: 100%;">
+        <div class="key-row">
+            <kbd>W</kbd>
+            <span>Jump</span>
+        </div>
+        <div class="key-row">
+            <kbd>A</kbd>
+            <span>Move Left</span>
+        </div>
+        <div class="key-row">
+            <kbd>D</kbd>
+            <span>Move Right</span>
+        </div>
+        <div class="key-row">
+            <kbd>Space</kbd>
+            <span>Roll</span>
+        </div>
+        <div class="key-row">
+            <kbd>W</kbd> <span style="opacity:0.6; font-size:13px;">+</span> <kbd>Space</kbd>
+            <span>Attack enemies</span>
+        </div>
+    </div>
+</div>
+
+      <!-- HELP -->
+      <div class="setting-row">
+        <button class="goback-btn" id="gobackBtn">Go Back</button>
+      
+
+    </div>
+
+  </div>
+</div>
+<audio id="bgMusic" loop>
+  <source src="music/backgroundmusic.mp3" type="audio/mpeg">
+</audio>
+
+<script src="./js/settings.js"></script>
+</body>
+</html>
